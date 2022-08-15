@@ -81,6 +81,8 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.GREEN);
 		g.fillOval(100, 50, 30, 30);
 		
+		//aqui está um comentario
+		
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
 		bs.show();
