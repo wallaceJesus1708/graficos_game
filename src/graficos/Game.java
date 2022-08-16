@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -19,13 +20,18 @@ public class Game extends Canvas implements Runnable{
 	public static JFrame frame;
 	private Thread thread;
 	private boolean isRunning = true;
-	private final int WIDTH = 160;
-	private final int HEIGHT = 120;
+	private final int WIDTH = 240;
+	private final int HEIGHT = 160;
 	private final int SCALE = 4;
 	
 	private BufferedImage image;
+	private Spritesheet sheet;
+	private BufferedImage player;
+	//private int x = 0;
 	
 	public Game() {
+		sheet = new Spritesheet("/sprite.png");
+		player = sheet.getSprite(0, 0, 64, 64);
 		setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -62,7 +68,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void tick() {
-
+		//x++;
 	}
 	
 	public void render() {
@@ -72,17 +78,28 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		Graphics g = image.getGraphics();
-		g.setColor(new Color(19,19,19));
+		g.setColor(new Color(0,19,19));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		g.setColor(Color.RED);
-		g.fillRect(10, 0, 10, 10);
+		//g.setFont(new Font("Arial", Font.BOLD, 20));
+		//g.setColor(Color.white);
+		//g.drawString("Olá", 19, 19);
+		//g.setColor(Color.RED);
+		//g.fillRect(10, 0, 10, 10);
 		
-		g.setColor(Color.GREEN);
-		g.fillOval(100, 50, 30, 30);
+		/*Renderização do jogo*/
+		
+		Graphics2D g2 = (Graphics2D) g;
+		g2.rotate(Math.toRadians(90),90,90);
+		g2.drawImage(player, 20, 20, null);
+		
+		
+		
+		//g.setColor(Color.GREEN);
+		//g.fillOval(100, 50, 30, 30);
 		
 		//aqui está um comentario
-		
+		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
 		bs.show();
